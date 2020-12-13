@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalkIFS_API", "TalkIFS_API\TalkIFS_API.csproj", "{671C7018-3F01-4E5E-A2EC-8C609E1ED687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{2D1D5606-19F3-4770-B73F-DA8D59563D06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9C535D14-8755-450B-9A8C-EC6A73592367}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{671C7018-3F01-4E5E-A2EC-8C609E1ED687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{671C7018-3F01-4E5E-A2EC-8C609E1ED687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{671C7018-3F01-4E5E-A2EC-8C609E1ED687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{671C7018-3F01-4E5E-A2EC-8C609E1ED687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1D5606-19F3-4770-B73F-DA8D59563D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1D5606-19F3-4770-B73F-DA8D59563D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1D5606-19F3-4770-B73F-DA8D59563D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1D5606-19F3-4770-B73F-DA8D59563D06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C535D14-8755-450B-9A8C-EC6A73592367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C535D14-8755-450B-9A8C-EC6A73592367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C535D14-8755-450B-9A8C-EC6A73592367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C535D14-8755-450B-9A8C-EC6A73592367}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C61974E4-186F-41E2-9050-B97823C732E3}
+	EndGlobalSection
+EndGlobal
