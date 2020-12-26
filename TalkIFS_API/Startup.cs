@@ -33,6 +33,7 @@ namespace TalkIFS_API
             services.AddControllers();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IProjectInducteeRepository, ProjectInducteeRepository>();
+            services.AddScoped<IProjectAttendanceRepository, ProjectAttendanceRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TalkIFS_API", Version = "v1" });

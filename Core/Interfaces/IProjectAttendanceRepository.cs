@@ -8,8 +8,12 @@ namespace Core.Interfaces
 {
     public interface IProjectAttendanceRepository
     {
-        Task<List<ProjectAttendance>> GetAttendeesAsync();
+        Task<List<ProjectAttendance>> GetAttendancesAsync(string url, string token, string inducteeName);
 
-        Task<ProjectAttendance> GetAttendeesByIdAsync(int id);
+        Task<ProjectAttendance> CreateAttendanceAsync(string url, string token, ProjectAttendance projectAttendance);
+
+        Task<ProjectAttendance> UpdateAttendanceAsync(string url, string token, ProjectAttendance projectAttendance);
+
+        //Task<List<ProjectAttendance>> GetAttendencesByInducteeAsync(string url, string token, string inducteeName);
     }
 }

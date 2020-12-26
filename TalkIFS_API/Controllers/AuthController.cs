@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using TalkIFS_API.Helpers;
 
 namespace TalkIFS_API.Controllers
 {
@@ -15,17 +17,21 @@ namespace TalkIFS_API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
+        private readonly IConfiguration _config;
 
-        public AuthController(IAuthRepository repo)
+        public AuthController(IAuthRepository repo, IConfiguration config)
         {
             _repo = repo;
+            _config = config;
         }
 
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var result = _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
+            var loginContent = _repo.Login(_config["BaseIfsUrl"],userForLoginDto.Username, userForLoginDto.Password);
+            Secrets.CurrentAuthInfo = loginContent;
 
-            return Ok();
+
+            return Ok(loginContent);
         }
     }
 }
