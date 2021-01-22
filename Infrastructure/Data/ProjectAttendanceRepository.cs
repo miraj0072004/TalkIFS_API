@@ -25,6 +25,10 @@ namespace Infrastructure.Data
             var urlToUse = inducteeName == null
                 ? $"{url}/ProjectAttendanceSet"
                 : $"{url}/ProjectAttendanceSet?$filter=Cf_Name eq '{inducteeName}'";
+
+            // var urlToUse = inducteeName == null
+            //     ? $"{url}/ProjectAttendanceSet"
+            //     : $"{url}/ProjectAttendanceSet(Objkey='{inducteeName}')";
             var client = new RestClient(urlToUse);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -32,9 +36,12 @@ namespace Infrastructure.Data
             //request.AddHeader("Cookie", $"JSESSIONID={_jessionIdCookie}; _WL_AUTHCOOKIE_JSESSIONID={_wlAuthCookieJSessionIdCookie}");
             IRestResponse response = client.Execute(request);
             //var attendanceBaseResponse = deserial.Deserialize<ProjectAttendanceResponse>(response);
+            // var attendanceBaseResponse = JsonConvert.DeserializeObject<ProjectAttendanceResponse>(response.Content);
+            // var attendances = attendanceBaseResponse.value;
+
             var attendanceBaseResponse = JsonConvert.DeserializeObject<ProjectAttendanceResponse>(response.Content);
             var attendances = attendanceBaseResponse.value;
-            Console.WriteLine(response.Content);
+            
 
 
             return attendances.ToList();
@@ -76,10 +83,33 @@ namespace Infrastructure.Data
             request.AddHeader("Prefer", "<string>");
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", $"Bearer {token}");
-            request.AddParameter("application/json", $"{{\n    \"Cf_Sign_Out_Time\": \"{projectAttendance.Cf_Sign_Out_Time.ToString("s")}\","
+            // var signOutTime = projectAttendance.Cf_Sign_Out_Time == null? "":projectAttendance.Cf_Sign_Out_Time.ToString("s");
+            
+            //When the sign out time is customizable
+            // request.AddParameter("application/json", $"{{\n    \"Cf_Sign_Out_Time\": \"{projectAttendance.Cf_Sign_Out_Time?.ToString("s")}\","
+            //                                          + $"\n    \"Cf_Status\": \"{projectAttendance.Cf_Status}\","
+            //                                          + $"\n    \"Cf_Terminal\": \"{projectAttendance.Cf_Terminal}\"\n}}",
+            //     ParameterType.RequestBody);
+
+            //When the sign out time is the current time of calling this method
+            // var statusToUpdate = projectAttendance.Cf_Status == "CfEnum_SIGNED_OUT"?"CfEnum_SIGNED_IN":"CfEnum_SIGNED_OUT";
+            if (projectAttendance.Cf_Status == "CfEnum_SIGNED_OUT")
+            {
+                request.AddParameter("application/json", $"{{\n    \"Cf_Sign_Out_Time\": \"{projectAttendance.Cf_Sign_Out_Time?.ToString("s")}\","
                                                      + $"\n    \"Cf_Status\": \"{projectAttendance.Cf_Status}\","
                                                      + $"\n    \"Cf_Terminal\": \"{projectAttendance.Cf_Terminal}\"\n}}",
                 ParameterType.RequestBody);
+            }else
+            {
+                request.AddParameter("application/json", $"{{\n    \"Cf_Sign_In_Time\": \"{projectAttendance.Cf_Sign_In_Time.ToString("s")}\","
+                                                     + $"\n    \"Cf_Status\": \"{projectAttendance.Cf_Status}\","
+                                                    //  + $"\n    \"Cf_Sign_Out_Time\": \"{DateTime.}\","
+                                                     + $"\n    \"Cf_Terminal\": \"{projectAttendance.Cf_Terminal}\"\n}}",
+                ParameterType.RequestBody);
+            }
+            
+
+
             //request.AddParameter("application/json", $"{\n    \"Cf_Status\": \"{projectAttendance.Cf_Status}\"," +
             //                                                    "\n    \"Cf_Sign_Out_Time\": \"2020-12-25T06:30:00Z\",\n    \"Cf_Terminal\": \"Miraj1\"\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);

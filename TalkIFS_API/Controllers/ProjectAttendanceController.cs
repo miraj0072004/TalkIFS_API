@@ -28,7 +28,8 @@ namespace TalkIFS_API.Controllers
         [HttpGet("{inducteeName?}")]
         public async Task<IActionResult> GetAttendances(string inducteeName = null)
         {
-            var attendances = _repo.GetAttendancesAsync(_config["BaseUrl"], Secrets.CurrentAuthInfo.access_token, inducteeName).Result;
+            Request.Headers.TryGetValue("Authorization", out var authorizationToken);
+            var attendances = _repo.GetAttendancesAsync(_config["BaseUrl"], authorizationToken, inducteeName).Result;
             return Ok(attendances);
         }
 
@@ -43,8 +44,8 @@ namespace TalkIFS_API.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdateAttendance(ProjectAttendance projectAttendance)
         {
-
-            var attendance = _repo.UpdateAttendanceAsync(_config["BaseUrl"], Secrets.CurrentAuthInfo.access_token, projectAttendance).Result;
+            Request.Headers.TryGetValue("Authorization", out var authorizationToken);
+            var attendance = _repo.UpdateAttendanceAsync(_config["BaseUrl"], authorizationToken, projectAttendance).Result;
             return Ok(attendance);
         }
 

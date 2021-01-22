@@ -38,6 +38,16 @@ namespace TalkIFS_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TalkIFS_API", Version = "v1" });
             });
+            // services.AddCors(opt => 
+            // {
+            //     opt.AddPolicy("CorsPolicy", policy =>
+            //     {
+            //         policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+            //     });
+            // }
+            // );
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,14 +61,25 @@ namespace TalkIFS_API
             }
 
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            // app.UseCors("CorsPolicy");
+
+            //use static files
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            
 
             app.UseAuthorization();
 
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index","Fallback");
             });
         }
     }

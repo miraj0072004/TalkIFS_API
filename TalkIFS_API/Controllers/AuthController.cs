@@ -25,6 +25,7 @@ namespace TalkIFS_API.Controllers
             _config = config;
         }
 
+        [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var loginContent = _repo.Login(_config["BaseIfsUrl"],userForLoginDto.Username, userForLoginDto.Password);

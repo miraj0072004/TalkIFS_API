@@ -27,7 +27,10 @@ namespace TalkIFS_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetInductees()
         {
-            var inductees=  _repo.GetInducteesAsync(_config["BaseUrl"],Secrets.CurrentAuthInfo.access_token).Result;
+            
+            Request.Headers.TryGetValue("Authorization", out var authorizationToken);
+            
+            var inductees=  _repo.GetInducteesAsync(_config["BaseUrl"],authorizationToken).Result;
             return Ok(inductees);
         }
 
